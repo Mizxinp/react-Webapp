@@ -67,9 +67,24 @@ Router.post('/login',function(req,res){
 	})
 })
 
+// 密码加密
 function md5Pwd(pwd){
 	let temp = 'mdg_ha_he!@jfsfjsl3455HHFET~~'
 	return utility.md5(utility.md5(pwd+temp))
 }
 
+// 保存boss的相关招聘信息
+Router.post('/update',function(req,res){
+	const user_id = req.cookies.user_id
+	if(!user_id){
+		return json.dumps({code:1})
+	}
+	User.findByIdAndUpdate(user_id,req.body,function(err,doc){
+		const data = Object.assign({},{
+			user:doc.user,
+			type:doc.type	
+		},req.body)
+		return res.json({code:0,data})
+	})
+})
 module.exports = Router
