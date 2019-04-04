@@ -16,7 +16,7 @@ class NavLinkBar extends React.Component{
 							title={item.text}
 							icon={{uri:require(`./img/${item.icon}.png`)}}
 							selectedIcon={{uri: require(`./img/${item.icon}-active.png`)}}
-							selected={pathname == item.path}
+							selected={pathname === item.path}
 							onPress={()=>{
 								this.props.history.push(item.path)
 							}}

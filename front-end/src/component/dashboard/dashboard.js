@@ -6,14 +6,13 @@ import NavLinkBar from '../navLinkBar/navLinkBar'
 import { user } from '../../redux/user';
 import Boss from '../boss/boss'
 import Genius from '../genius/genius'
+import PersonalCenter from '../PersonalCenter/PersonalCenter'
 
 
 function Msg(){
 	return <h2>消息列表页面</h2>
 }
-function User(){
-	return <h2>个人中心页面</h2>
-}
+
 @connect(
 	state=>state
 )
@@ -29,7 +28,7 @@ class Dashboard extends React.Component{
 				icon:'boss',
 				title:'牛人列表',
 				component:Boss,
-				hide:user.type == 'genius'
+				hide:user.type === 'genius'
 			},
 			{
 				path:'/genius',
@@ -37,7 +36,7 @@ class Dashboard extends React.Component{
 				icon:'job',
 				title:'BOSS列表',
 				component:Genius,
-				hide:user.type=='boss'
+				hide:user.type ==='boss'
 			},
 			{
 				path:'/msg',
@@ -52,12 +51,12 @@ class Dashboard extends React.Component{
 				text:'我',
 				icon:'user',
 				title:'个人中心',
-				component:User
+				component:PersonalCenter
 			}
 		]
 		return(
 			<div>
-				<NavBar mode='dark'>{navList.find(item=>item.path == pathname).title}</NavBar>
+				<NavBar mode='dark'>{navList.find(item=>item.path === pathname).title}</NavBar>
 				<div>
 					{
 						navList.map(item=>(

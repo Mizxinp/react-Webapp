@@ -15,6 +15,7 @@ import Dashboard from './component/dashboard/dashboard'
 import BossInfo from './container/bossinfo/bossinfo'
 import GeniusInfo from './container/geniusinfo/geniusinfo'
 
+
 const store = createStore(reducer,compose(
 	applyMiddleware(thunk),
 	window.devToolsExtension?window.devToolsExtension():f=>f
@@ -31,6 +32,7 @@ ReactDOM.render(
 						<Route path='/geniusinfo' component={GeniusInfo}></Route>
 						<Route path='/login' component={Login}></Route>
 						<Route path='/register' component={Register}></Route>
+						{/* <Redirect from='/' to='/login'></Redirect> */}
 						<Route component={Dashboard}></Route>
 					</Switch>
 				</div>
