@@ -10,6 +10,13 @@ import Logo from '../../component/logo/logo'
 	{login}
 )
 class Login extends React.Component{
+	constructor(props) {
+		super(props)
+		this.state = {
+			user:'',
+			pwd:''
+		}
+	}
 	handleLogin = () =>{
 		this.props.login(this.state)
 	}
@@ -34,6 +41,7 @@ class Login extends React.Component{
 						>用户</InputItem>
 						<WhiteSpace />
 						<InputItem
+							type='password'
 							onChange={value=>this.handleChange('pwd',value)}
 						>密码</InputItem>
 					</List>
