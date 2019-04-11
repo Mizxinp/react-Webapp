@@ -4,31 +4,27 @@ import {connect} from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import {login} from '../../redux/user'
 import Logo from '../../component/logo/logo'
+import  JobForm  from '../../component/HOC form/HOC_form'
 
 @connect(
 	state=>state.user,
 	{login}
 )
+@JobForm
 class Login extends React.Component{
-	constructor(props) {
-		super(props)
-		this.state = {
-			user:'',
-			pwd:''
-		}
-	}
+	
 	handleLogin = () =>{
-		this.props.login(this.state)
+		this.props.login(this.props.state)
 	}
 	register = () =>{
 		this.props.history.push('/register')
 	}
 
-	handleChange = (key,val) =>{
+	/* handleChange = (key,val) =>{
 		this.setState({
 			[key]:val
 		})
-	}
+	} */
 	render(){
 		const {redirectTo} = this.props
 		return(
@@ -38,12 +34,12 @@ class Login extends React.Component{
 				<WingBlank>
 					<List>
 						<InputItem
-							onChange={value=>this.handleChange('user',value)}
+							onChange={value=>this.props.handleChange('user',value)}
 						>用户</InputItem>
 						<WhiteSpace />
 						<InputItem
 							type='password'
-							onChange={value=>this.handleChange('pwd',value)}
+							onChange={value=>this.props.handleChange('pwd',value)}
 						>密码</InputItem>
 					</List>
 					<WhiteSpace />
