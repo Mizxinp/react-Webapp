@@ -3,6 +3,7 @@ const utility = require('utility')
 const Router = express.Router();
 const model = require('./model')
 const User = model.getModel('user')
+const Chat = model.getModel('chat')
 
 const _filter = {pwd:0,__v:0}
 
@@ -86,5 +87,23 @@ Router.post('/update',function(req,res){
 		},req.body)
 		return res.json({code:0,data})
 	})
+})
+
+// 获取消息列表
+Router.get('/getmsglist',function(req,res){
+	const user = req.cookies.userName
+
+	User.find({},function(err,userdoc){
+		let users = {}
+		userdoc.forEach(item=>{
+			users[item._id] = {name:item.user,avatar:item.avatar}
+		})
+		Chat.find({},function(err,doc){
+			if(!err){
+				return res.json({code:0,msgs:doc,users:users})
+			}
+		})
+	})
+	
 })
 module.exports = Router

@@ -7,6 +7,7 @@ import { user } from '../../redux/user';
 import Boss from '../boss/boss'
 import Genius from '../genius/genius'
 import PersonalCenter from '../PersonalCenter/PersonalCenter'
+import {getMsgList,recvMsg} from '../../redux/chat.redux'
 
 
 function Msg(){
@@ -14,9 +15,17 @@ function Msg(){
 }
 
 @connect(
-	state=>state
+	state=>state,
+	{getMsgList,recvMsg}
 )
 class Dashboard extends React.Component{
+	componentDidMount(){
+		//防止多次获取
+		if(!this.props.chat.chatmsg.length){
+			this.props.getMsgList()
+			this.props.recvMsg()
+		}
+	}
 	render(){
 		const {pathname} = this.props.location
 		

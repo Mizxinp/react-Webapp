@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import  { getList } from '../../redux/chat.redux'
+import  { getList } from '../../redux/chatuser.redux'
 import UserCard from '../userCard/userCard'
 
 @connect(
