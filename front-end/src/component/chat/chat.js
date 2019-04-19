@@ -2,7 +2,7 @@ import React from 'react'
 import {List,InputItem,NavBar,Icon,Grid } from 'antd-mobile'
 import io from 'socket.io-client'
 import { connect } from 'react-redux'
-import {getMsgList,sendMsg,recvMsg} from '../../redux/chat.redux'
+import {getMsgList,sendMsg,recvMsg,readMsg} from '../../redux/chat.redux'
 import { withRouter } from 'react-router-dom'
 import { getChatId } from '../../util'
 
@@ -12,7 +12,7 @@ const socket = io('ws://localhost:8089')
 @withRouter
 @connect(
 	state=>state,
-	{getMsgList,sendMsg,recvMsg}
+	{getMsgList,sendMsg,recvMsg,readMsg}
 )
 
 class Chat extends React.Component{
@@ -29,6 +29,16 @@ class Chat extends React.Component{
 			this.props.getMsgList()
 			this.props.recvMsg()
 		}
+		// const to = this.props.match.params.user
+		// console.log('t',to);
+		
+		// this.props.readMsg(to)
+	}
+	componentWillUnmount(){
+		console.log('触发了');
+		
+		const to = this.props.match.params.user
+		this.props.readMsg(to)
 	}
 	handleSubmit = ()=>{
 		const from = this.props.user._id
@@ -58,7 +68,7 @@ class Chat extends React.Component{
 		if(!users[userid]){
 			return null
 		}
-		const chatid = getChatId(this.props.user._id,userid)
+		const chatid = getChatId(userid,this.props.user._id)
 		const chatmsgs = chat.chatmsg.filter(item=>item.chatid==chatid)
 		return(
 			<div className='chat-page'>

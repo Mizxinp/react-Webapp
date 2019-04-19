@@ -16,12 +16,13 @@ io.on('connection',function(socket){
 		// console.log(data);
 		const { from,to,msg } = data
 		const chatid = [from,to].sort().join('_')
-		Chat.create({chatid,from,to,content:msg},function(err,doc){
+		const create_time = new Date().getTime()
+		Chat.create({chatid,from,to,content:msg,create_time},function(err,doc){
 			//发送全局的事件
+			console.log('ha',doc._doc);
 			
 			io.emit('recvmsg',Object.assign({},doc._doc))
-		})
-		
+		})		
 	})
 })
 

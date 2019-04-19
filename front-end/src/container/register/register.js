@@ -35,16 +35,15 @@ class Register extends React.Component{
 	// 	})
 	// }
 	handleRegister = () =>{
-		console.info('dd',this.state);
 		this.props.register(this.props.state)
 		
 	}
 	render(){
-		console.log('prpps',this.props);
+		console.log('register prpps',this.props);
 		
 		return(
 			<div>
-				{this.props.redirectTo?<Redirect to={this.props.redirectTo} />:null}
+				{/* {this.props.redirectTo?<Redirect to={this.props.redirectTo} />:null} */}
 				<Logo></Logo>
 				<List>
 					{this.props.msg?<p className='err-msg'>{this.props.msg}</p>:null}

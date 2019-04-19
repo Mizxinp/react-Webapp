@@ -27,13 +27,12 @@ export function chat(state=initState,action){
 			}
 		case MSG_RECV:
 			const n = action.payload.msg.to == action.payload.userid?1:0
-			console.log('to',action.payload.msg.to);
-			console.log('userid',action.payload.userid);
-			
-			console.log('数字',n);
 			
 			return {...state,chatmsg:[...state.chatmsg,action.payload.msg],unread:state.unread+n}
-		// case MSG_READ:
+		case MSG_READ:
+			const { from,num } = action.payload
+			
+			return {...state,chatmsg:state.chatmsg.map(item=>({...item,read:from == item.from?true:item.read})),unread:state.unread-num}
 		default:
 			return state
 	}
@@ -42,7 +41,15 @@ export function chat(state=initState,action){
 function msgList(msgs,users,userid){
 	return {type:'MSG_LIST',payload:{msgs,users,userid}}
 }
+function msgRecv(msg,userid){
+	return { type:MSG_RECV,payload:{msg,userid}}
+}
+function msgRead({userid,from,num}){
+	
+	return { type:MSG_READ,payload:{userid,from,num}}
+}
 
+// 获取消息列表
 export function getMsgList(){
 	return (dispatch,getState)=>{
 		axios.get('/user/getmsglist')
@@ -72,6 +79,15 @@ export function recvMsg(){
 		})
 	}
 }
-function msgRecv(msg,userid){
-	return { type:MSG_RECV,payload:{msg,userid}}
+
+// 处理已读消息
+export function readMsg(from){
+	return (dispatch,getState)=>{
+		axios.post('/user/readmsg',{from})
+			.then(res=>{
+				const userid = getState().user._id
+				console.log('get',userid);
+				dispatch(msgRead({userid,from,num:res.data.num}))
+			})
+	}
 }

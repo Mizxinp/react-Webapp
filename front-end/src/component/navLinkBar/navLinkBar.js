@@ -12,7 +12,6 @@ class NavLinkBar extends React.Component{
 	render(){
 		const navList = this.props.data.filter(item=>!item.hide)
 		const {pathname} = this.props.location
-		console.log('pp',this.props);
 		
 		return(
 			<TabBar>

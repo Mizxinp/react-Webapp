@@ -7,12 +7,8 @@ import { user } from '../../redux/user';
 import Boss from '../boss/boss'
 import Genius from '../genius/genius'
 import PersonalCenter from '../PersonalCenter/PersonalCenter'
+import Msg from '../msg/msg'
 import {getMsgList,recvMsg} from '../../redux/chat.redux'
-
-
-function Msg(){
-	return <h2>消息列表页面</h2>
-}
 
 @connect(
 	state=>state,
